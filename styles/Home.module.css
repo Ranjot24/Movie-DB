@@ -1,0 +1,151 @@
+/* General Container */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+.h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  margin: 20px 0px;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+/* Navigation Buttons */
+.navbar button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #0070f3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.navbar button:hover {
+  background-color: #005bb5;
+}
+
+.navbar button:active {
+  transform: scale(0.95);
+}
+
+.navbar button:focus {
+  outline: 2px solid #005bb5;
+}
+
+/* Navigation Menu for Mobile */
+.menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 10;
+}
+
+.menu button {
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menu.show {
+  display: flex;
+}
+
+/* Burger Menu Icon */
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+}
+
+/* Grid Layout for Movies */
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+/* Movie Cards */
+.movieCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movieCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.movieCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.movieCard h3 {
+  margin-top: 10px;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Navigation Button */
+.navButton {
+  color: #005bb5;
+  margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .menu {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    background: none;
+    padding: 0;
+  }
+
+  .burger {
+    display: none;
+  }
+}
