@@ -52,7 +52,7 @@ export default function Search() {
               <button
           className={styles.trailerButton}
           onClick={async () => {
-            const trailerUrl = await fetchMovieTrailer(movie.id);
+            const trailerUrl = await handleTrailerClick(movie.id);
             if (trailerUrl) {
               window.open(trailerUrl, "_blank");
             } else {
