@@ -7,16 +7,20 @@ export default function Search() {
   const [movies, setMovies] = useState([]);
 
   const handleSearch = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?api_key=2cce486e7f54a137ac4e291d967e29aa&query=${query}`
-    );
-    setMovies(data.results);
-  };
-
-  const handleTrailerClick = async () => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=2cce486e7f54a137ac4e291d967e29aa`
+        `https://api.themoviedb.org/3/search/movie?api_key=2cce486e7f54a137ac4e291d967e29aa&query=${query}`
+      );
+      setMovies(data.results);
+    } catch (error) {
+      console.error("Error fetching search results:", error.message);
+    }
+  };
+
+  const handleTrailerClick = async (movieId) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=2cce486e7f54a137ac4e291d967e29aa`
       );
       const trailer = data.results.find((video) => video.type === "Trailer");
       if (trailer) {
@@ -31,15 +35,18 @@ export default function Search() {
 
   return (
     <div className={styles.container}>
-      <h1 id="h1">Search Movies</h1>
+      <h1 className={styles.h1}>Search Movies</h1>
       <div className={styles.search}>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Enter movie name" id="input"
-      />
-      <button onClick={handleSearch} className={styles.button}>Search</button>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter movie name"
+          className={styles.input}
+        />
+        <button onClick={handleSearch} className={styles.button}>
+          Search
+        </button>
       </div>
       <div className={styles.movieGrid}>
         {movies.map((movie) => (
@@ -49,19 +56,12 @@ export default function Search() {
               alt={movie.title}
             />
             <h3>{movie.title}</h3>
-              <button
-          className={styles.trailerButton}
-          onClick={async () => {
-            const trailerUrl = await handleTrailerClick(movie.id);
-            if (trailerUrl) {
-              window.open(trailerUrl, "_blank");
-            } else {
-              alert("Trailer not available for this movie.");
-            }
-          }}
-        >
-          Watch Trailer
-        </button>
+            <button
+              className={styles.trailerButton}
+              onClick={() => handleTrailerClick(movie.id)}
+            >
+              Watch Trailer
+            </button>
           </div>
         ))}
       </div>
