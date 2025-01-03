@@ -22,6 +22,21 @@ export default function Home() {
     }
   };
 
+  const fetchMovieTrailer = async (movieId) => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=2cce486e7f54a137ac4e291d967e29aa`
+      );
+      const trailer = data.results.find(
+        (video) => video.type === "Trailer" && video.site === "YouTube"
+      );
+      return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
+    } catch (error) {
+      console.error(`Error fetching trailer for movie ${movieId}:`, error.message);
+      return null;
+    }
+  };
+
   useEffect(() => {
     fetchMoviesByCategory("popular", setPopularMovies);
     fetchMoviesByCategory("now_playing", setNowPlayingMovies);
@@ -38,6 +53,19 @@ export default function Home() {
             alt={movie.title}
           />
           <h3>{movie.title}</h3>
+            <button
+          className={styles.trailerButton}
+          onClick={async () => {
+            const trailerUrl = await fetchMovieTrailer(movie.id);
+            if (trailerUrl) {
+              window.open(trailerUrl, "_blank");
+            } else {
+              alert("Trailer not available for this movie.");
+            }
+          }}
+        >
+          Watch Trailer
+        </button>
         </div>
       </Link>
     ));
