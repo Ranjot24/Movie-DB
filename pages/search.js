@@ -13,6 +13,22 @@ export default function Search() {
     setMovies(data.results);
   };
 
+  const handleTrailerClick = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=2cce486e7f54a137ac4e291d967e29aa`
+      );
+      const trailer = data.results.find((video) => video.type === "Trailer");
+      if (trailer) {
+        window.open(`https://www.youtube.com/watch?v=${trailer.key}`, "_blank");
+      } else {
+        alert("No trailer available for this movie.");
+      }
+    } catch (error) {
+      console.error("Error fetching trailer:", error.message);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1 id="h1">Search Movies</h1>
@@ -33,6 +49,9 @@ export default function Search() {
               alt={movie.title}
             />
             <h3>{movie.title}</h3>
+              <button className={styles.trailerButton} onClick={handleTrailerClick}>
+        Watch Trailer
+      </button>
           </div>
         ))}
       </div>
