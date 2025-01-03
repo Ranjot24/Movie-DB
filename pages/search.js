@@ -49,9 +49,19 @@ export default function Search() {
               alt={movie.title}
             />
             <h3>{movie.title}</h3>
-              <button className={styles.trailerButton} onClick={handleTrailerClick}>
-        Watch Trailer
-      </button>
+              <button
+          className={styles.trailerButton}
+          onClick={async () => {
+            const trailerUrl = await fetchMovieTrailer(movie.id);
+            if (trailerUrl) {
+              window.open(trailerUrl, "_blank");
+            } else {
+              alert("Trailer not available for this movie.");
+            }
+          }}
+        >
+          Watch Trailer
+        </button>
           </div>
         ))}
       </div>
