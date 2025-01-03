@@ -149,3 +149,24 @@
     display: none;
   }
 }
+
+.trailerButton {
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.trailerButton:hover {
+  background-color: #005bb5;
+}
+
+.trailerButton:active {
+  transform: scale(0.95);
+}
+
