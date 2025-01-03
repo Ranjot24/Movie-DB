@@ -29,9 +29,19 @@ export default function MovieDetails({ movie }) {
       <p className={styles.p}>{movie.overview}</p>
       <p className={styles.p}>Release Date: {movie.release_date}</p>
       <p className={styles.p}>Rating: {movie.vote_average}</p>
-        <button className={styles.trailerButton} onClick={handleTrailerClick}>
-        Watch Trailer
-      </button>
+        <button
+          className={styles.trailerButton}
+          onClick={async () => {
+            const trailerUrl = await fetchMovieTrailer(movie.id);
+            if (trailerUrl) {
+              window.open(trailerUrl, "_blank");
+            } else {
+              alert("Trailer not available for this movie.");
+            }
+          }}
+        >
+          Watch Trailer
+        </button>
     </div>
   );
 }
