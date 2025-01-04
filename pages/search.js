@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 import styles from "../styles/Search.module.css";
 
 export default function Search() {
@@ -50,21 +51,27 @@ export default function Search() {
       </div>
       <div className={styles.movieGrid}>
         {movies.map((movie) => (
-          <div key={movie.id} className={styles.movieCard}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-              alt={movie.title}
-            />
-            <h3>{movie.title}</h3>
-            <button
-              className={styles.trailerButton}
-              onClick={() => handleTrailerClick(movie.id)}
-            >
-              Watch Trailer
-            </button>
-          </div>
+          <Link href={`/movie/${movie.id}`} key={movie.id} passHref>
+            <div className={styles.movieCard}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                alt={movie.title}
+              />
+              <h3>{movie.title}</h3>
+              <button
+                className={styles.trailerButton}
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent navigation on trailer click
+                  handleTrailerClick(movie.id);
+                }}
+              >
+                Watch Trailer
+              </button>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
   );
 }
+
